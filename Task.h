@@ -9,7 +9,7 @@ class Task {
 
     public:
     Task(const std::string& description);
-    std::string getDescription const;
+    std::string getDescription() const;
     bool isCompleted() const;
     void markComplete();
 };
