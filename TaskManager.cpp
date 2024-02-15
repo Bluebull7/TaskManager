@@ -71,47 +71,25 @@ void TaskManager::loadTasksFromFile(const std::string& filename) {
 int main() {
     TaskManager taskManager;
 
-    while (true) {
-        std::cout << "1. Add Task\n";
-        std::cout << "2. Mark Task as Complete\n";
-        std::cout << "3. List Tasks \n";
-        std::cout << "0. Exit\n";
-        std::cout << "Enter your choice: ";
+    //Adding Tasks
+    taskManager.addTask("Complete Project", time(0));
+    taskManager.addTask("Read Book", time(0));
+    taskManager.addTask("Exercise", time(0));
 
-        int choice;
-        std::cin >> choice;
+    //Marking tasks as complete
+    taskManager.markTaskComplete(1);
 
-        switch (choice) {
-        
-        case 1: {
-            std:: string description;
-            std::cout << "Enter task description: ";
-            std::cin.ignore();
-            std::getline(std::cin, description);
-            taskManager.addTask(description);
-            
-            break;
-        }
+    //Listing Tasks
+    taskManager.listTasks();
 
-        case 2: {
-            int index;
-            std::cout << "Enter task index to mark as complete: ";
-            std::cin >> index;
-            taskManager.markTaskComplete(index - 1);
-            break;
-        }
+    //Saving tasks 
+    taskManager.saveTasksToFile("tasks.txt");
 
-        case 3: {
-            taskManager.listTasks();
-            break;
-        }
-        case 0: {
-            return 0;
-        
-        default:
-            std::cout <<"Invalid choice... Please try again..\n";
-        }
-    }
-}    
+    // Loading tasks from a file
+    taskManager.loadTasksFromFile("tasks.txt");
+
+    // Listing tasks after loading 
+    taskManager.listTasks();
+
     return 0;
 }
