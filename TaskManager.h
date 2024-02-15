@@ -10,4 +10,6 @@ class TaskManager {
         void addTask(const std::string& description);
         void markTaskComplete(int index);
         void listTasks() const;
+        void saveTasksToFile(const std::string& filename) const;
+        void loadTasksFromFile(const std::string& filename);
 };
