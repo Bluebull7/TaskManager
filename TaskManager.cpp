@@ -41,11 +41,31 @@ void TaskManager::saveTasksToFile(const std::string& filename) const {
 void TaskManager::loadTasksFromFile(const std::string& filename) {
     std::ifstream inputFile(filename);
     if(!inputFile.is_open()) {
-        std::cerr << "Error: Unable to open file for reading.\n"
+        std::cerr << "Error: Unable to open file for reading.\n";
         return;
     }
 
     tasks.clear(); // clear existing tasks before loading from file
+
+    std::string line;
+    while(std::getline(inputFile, line)) {
+        size_t commaPos1 = line.find(',');
+        size_t commaPos2 = line.find(',', commaPos1 + 1);
+
+        std::string description = line.substr(0, commaPos1);
+        time_t dueDate = std::stol(line.substr(commaPos1 + 1, commaPos2 - commaPos1 - 1));
+        bool completed = (line.substr(commaPos2 + 1) == "1");
+
+        Task loadedTask(description, dueDate);
+        if (completed) {
+            loadedTask.markComplete();
+        }
+
+        tasks.push_back(loadedTask);
+
+    }
+
+    inputFile.close();
 }
 
 int main() {
